@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IPLCheckModelStoreContainer" CdmEntityContainer="IPLCheckEntities">
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="IPLCheckModel.Player">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="TPlayer" ColumnName="TPlayer" />
+          <ScalarProperty Name="img" ColumnName="img" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PProfiles">
+      <EntityTypeMapping TypeName="IPLCheckModel.PProfile">
+        <MappingFragment StoreEntitySet="PProfile">
+          <ScalarProperty Name="Profileid" ColumnName="Profileid" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="HighestScore" ColumnName="HighestScore" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="BestBowling" ColumnName="BestBowling" />
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="IPLCheckModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="Tid" ColumnName="Tid" />
+          <ScalarProperty Name="TName" ColumnName="TName" />
+          <ScalarProperty Name="Towner" ColumnName="Towner" />
+          <ScalarProperty Name="Teamlogo" ColumnName="Teamlogo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

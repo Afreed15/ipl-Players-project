@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProjectCheck.Models.Player>
+
+@{
+    ViewBag.Title = "LPlayers";
+    Layout = "~/Views/Shared/ipl.cshtml";
+}
+
+<h2 class="bg-primary text-center text-white"><b>Team Players List</b></h2>
+
+<div class="container">
+    <table class="table table-bordered table-dark">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                IPL Team
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.TPlayer
+                </td>
+                <td>
+                    <img src="@item.img" width="150" height="150" />
+                </td>
+                <td>
+                    @item.Team.TName
+                </td>
+                <td>
+                    @Html.ActionLink("View profile", "PDetails", new { id = item.Pid })
+
+                </td>
+            </tr>
+        }
+        @Html.ActionLink("Back to Teams", "Teams", "IPL")
+    </table>
+</div>

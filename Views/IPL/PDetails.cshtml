@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProjectCheck.Models.PProfile>
+
+@{
+    ViewBag.Title = "PDetails";
+    Layout = "~/Views/Shared/ipl.cshtml";
+}
+
+
+
+<div class="container">
+    
+
+        @foreach (var item in Model)
+        {
+    <ul style="list-style-type:none;display: block; margin-left: auto;margin-right: auto;width: 50%;">
+        <li><h2 class="bg-primary text-center text-white"><b>@item.Player.TPlayer &nbsp; Profile</b></h2></li>
+        <li><img src="@item.Player.img" width="300" height="300" /></li>
+
+
+        <li><b>NAME :&nbsp;&nbsp;@item.Player.TPlayer</b></li>
+        <li><b>Country:&nbsp;&nbsp;@item.Country</b></li>
+        <li><b> Role:&nbsp;&nbsp;@item.role</b></li>
+        <li><b>Highest Score:&nbsp;&nbsp;@item.HighestScore</b></li>
+
+        <li><b> Best Bowling:&nbsp;&nbsp;@item.BestBowling</b></li>
+
+        <li><b> @Html.ActionLink("Back to List", "Lplayers", new { id = item.Tid })</b></li>
+
+    </ul>
+        }
+
+    
+</div>

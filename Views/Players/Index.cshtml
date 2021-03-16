@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProjectCheck.Models.PProfile>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/ipl.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    <table class="table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Player.TPlayer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HighestScore)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.BestBowling)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Team.TName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player.TPlayer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HighestScore)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BestBowling)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.TName)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>

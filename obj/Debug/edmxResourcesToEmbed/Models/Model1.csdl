@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IPLCheckModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="Pid" />
+    </Key>
+    <Property Name="Pid" Type="Int32" Nullable="false" />
+    <Property Name="TPlayer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="img" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tid" Type="Int32" />
+    <NavigationProperty Name="Team" Relationship="Self.FK__Players__Tid__276EDEB3" FromRole="Players" ToRole="Teams" />
+    <NavigationProperty Name="PProfiles" Relationship="Self.FK__PProfile__Pid__2B3F6F97" FromRole="Players" ToRole="PProfile" />
+  </EntityType>
+  <EntityType Name="PProfile">
+    <Key>
+      <PropertyRef Name="Profileid" />
+    </Key>
+    <Property Name="Profileid" Type="Int32" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HighestScore" Type="Int32" Nullable="false" />
+    <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BestBowling" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Tid" Type="Int32" />
+    <Property Name="Pid" Type="Int32" />
+    <NavigationProperty Name="Player" Relationship="Self.FK__PProfile__Pid__2B3F6F97" FromRole="PProfile" ToRole="Players" />
+    <NavigationProperty Name="Team" Relationship="Self.FK__PProfile__Tid__2A4B4B5E" FromRole="PProfile" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Name="Tid" Type="Int32" Nullable="false" />
+    <Property Name="TName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Towner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Teamlogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Players" Relationship="Self.FK__Players__Tid__276EDEB3" FromRole="Teams" ToRole="Players" />
+    <NavigationProperty Name="PProfiles" Relationship="Self.FK__PProfile__Tid__2A4B4B5E" FromRole="Teams" ToRole="PProfile" />
+  </EntityType>
+  <Association Name="FK__Players__Tid__276EDEB3">
+    <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+    <End Role="Players" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PProfile__Pid__2B3F6F97">
+    <End Role="Players" Type="Self.Player" Multiplicity="0..1" />
+    <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="Pid" />
+      </Principal>
+      <Dependent Role="PProfile">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PProfile__Tid__2A4B4B5E">
+    <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+    <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="PProfile">
+        <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="IPLCheckEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Players" EntityType="Self.Player" />
+    <EntitySet Name="PProfiles" EntityType="Self.PProfile" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <AssociationSet Name="FK__Players__Tid__276EDEB3" Association="Self.FK__Players__Tid__276EDEB3">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PProfile__Pid__2B3F6F97" Association="Self.FK__PProfile__Pid__2B3F6F97">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="PProfile" EntitySet="PProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PProfile__Tid__2A4B4B5E" Association="Self.FK__PProfile__Tid__2A4B4B5E">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="PProfile" EntitySet="PProfiles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

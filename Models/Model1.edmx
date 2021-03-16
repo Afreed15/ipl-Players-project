@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IPLCheckModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="int" Nullable="false" />
+          <Property Name="TPlayer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="img" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Tid" Type="int" />
+        </EntityType>
+        <EntityType Name="PProfile">
+          <Key>
+            <PropertyRef Name="Profileid" />
+          </Key>
+          <Property Name="Profileid" Type="int" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HighestScore" Type="int" Nullable="false" />
+          <Property Name="role" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BestBowling" Type="nvarchar" MaxLength="10" />
+          <Property Name="Tid" Type="int" />
+          <Property Name="Pid" Type="int" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="int" Nullable="false" />
+          <Property Name="TName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Towner" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Teamlogo" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <Association Name="FK__Players__Tid__276EDEB3">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PProfile__Pid__2B3F6F97">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="Pid" />
+            </Principal>
+            <Dependent Role="PProfile">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PProfile__Tid__2A4B4B5E">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="PProfile">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IPLCheckModelStoreContainer">
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PProfile" EntityType="Self.PProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Players__Tid__276EDEB3" Association="Self.FK__Players__Tid__276EDEB3">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PProfile__Pid__2B3F6F97" Association="Self.FK__PProfile__Pid__2B3F6F97">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PProfile" EntitySet="PProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PProfile__Tid__2A4B4B5E" Association="Self.FK__PProfile__Tid__2A4B4B5E">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PProfile" EntitySet="PProfile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IPLCheckModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" />
+          <Property Name="TPlayer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="img" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tid" Type="Int32" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Players__Tid__276EDEB3" FromRole="Players" ToRole="Teams" />
+          <NavigationProperty Name="PProfiles" Relationship="Self.FK__PProfile__Pid__2B3F6F97" FromRole="Players" ToRole="PProfile" />
+        </EntityType>
+        <EntityType Name="PProfile">
+          <Key>
+            <PropertyRef Name="Profileid" />
+          </Key>
+          <Property Name="Profileid" Type="Int32" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HighestScore" Type="Int32" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BestBowling" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Tid" Type="Int32" />
+          <Property Name="Pid" Type="Int32" />
+          <NavigationProperty Name="Player" Relationship="Self.FK__PProfile__Pid__2B3F6F97" FromRole="PProfile" ToRole="Players" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__PProfile__Tid__2A4B4B5E" FromRole="PProfile" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Tid" />
+          </Key>
+          <Property Name="Tid" Type="Int32" Nullable="false" />
+          <Property Name="TName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Towner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Teamlogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Players" Relationship="Self.FK__Players__Tid__276EDEB3" FromRole="Teams" ToRole="Players" />
+          <NavigationProperty Name="PProfiles" Relationship="Self.FK__PProfile__Tid__2A4B4B5E" FromRole="Teams" ToRole="PProfile" />
+        </EntityType>
+        <Association Name="FK__Players__Tid__276EDEB3">
+          <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PProfile__Pid__2B3F6F97">
+          <End Role="Players" Type="Self.Player" Multiplicity="0..1" />
+          <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="Pid" />
+            </Principal>
+            <Dependent Role="PProfile">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PProfile__Tid__2A4B4B5E">
+          <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="Tid" />
+            </Principal>
+            <Dependent Role="PProfile">
+              <PropertyRef Name="Tid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IPLCheckEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="PProfiles" EntityType="Self.PProfile" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK__Players__Tid__276EDEB3" Association="Self.FK__Players__Tid__276EDEB3">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PProfile__Pid__2B3F6F97" Association="Self.FK__PProfile__Pid__2B3F6F97">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PProfile" EntitySet="PProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PProfile__Tid__2A4B4B5E" Association="Self.FK__PProfile__Tid__2A4B4B5E">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="PProfile" EntitySet="PProfiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IPLCheckModelStoreContainer" CdmEntityContainer="IPLCheckEntities">
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="IPLCheckModel.Player">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="TPlayer" ColumnName="TPlayer" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PProfiles">
+            <EntityTypeMapping TypeName="IPLCheckModel.PProfile">
+              <MappingFragment StoreEntitySet="PProfile">
+                <ScalarProperty Name="Profileid" ColumnName="Profileid" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="HighestScore" ColumnName="HighestScore" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="BestBowling" ColumnName="BestBowling" />
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="IPLCheckModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Tid" ColumnName="Tid" />
+                <ScalarProperty Name="TName" ColumnName="TName" />
+                <ScalarProperty Name="Towner" ColumnName="Towner" />
+                <ScalarProperty Name="Teamlogo" ColumnName="Teamlogo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IPLCheckModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="Pid" />
+    </Key>
+    <Property Name="Pid" Type="int" Nullable="false" />
+    <Property Name="TPlayer" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="img" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Tid" Type="int" />
+  </EntityType>
+  <EntityType Name="PProfile">
+    <Key>
+      <PropertyRef Name="Profileid" />
+    </Key>
+    <Property Name="Profileid" Type="int" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HighestScore" Type="int" Nullable="false" />
+    <Property Name="role" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BestBowling" Type="nvarchar" MaxLength="10" />
+    <Property Name="Tid" Type="int" />
+    <Property Name="Pid" Type="int" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Name="Tid" Type="int" Nullable="false" />
+    <Property Name="TName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Towner" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Teamlogo" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <Association Name="FK__Players__Tid__276EDEB3">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PProfile__Pid__2B3F6F97">
+    <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+    <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="Pid" />
+      </Principal>
+      <Dependent Role="PProfile">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PProfile__Tid__2A4B4B5E">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+    <End Role="PProfile" Type="Self.PProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="PProfile">
+        <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="IPLCheckModelStoreContainer">
+    <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PProfile" EntityType="Self.PProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Players__Tid__276EDEB3" Association="Self.FK__Players__Tid__276EDEB3">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PProfile__Pid__2B3F6F97" Association="Self.FK__PProfile__Pid__2B3F6F97">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="PProfile" EntitySet="PProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PProfile__Tid__2A4B4B5E" Association="Self.FK__PProfile__Tid__2A4B4B5E">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="PProfile" EntitySet="PProfile" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
